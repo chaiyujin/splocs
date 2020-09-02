@@ -9,7 +9,7 @@ if __name__ == '__main__':
             weights.append(f['weights'].value)
 
     pl.figure(figsize=(4, 12))
-    for i in xrange(weights[0].shape[1]):
+    for i in range(weights[0].shape[1]):
         pl.subplot(weights[0].shape[1], 1, i+1)
         for w in weights:
             pl.plot(w[:,i])

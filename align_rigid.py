@@ -31,7 +31,7 @@ def find_rbm_procrustes(frompts, topts):
 
 
 def test_find_rbm_procrustes():
-    for it in xrange(100):
+    for it in range(100):
         R = np.linalg.qr(np.random.uniform(-1, 1, size=(3, 3)))[0]
         if np.linalg.det(R) < 0:
             R *= -1
@@ -54,7 +54,7 @@ def main(input_hdf5_file, output_hdf5_file):
     v0 = verts[0]
     verts_new = []
     for i, v in enumerate(verts):
-        print "frame %d/%d" % (i+1, len(verts))
+        print ("frame %d/%d" % (i+1, len(verts)))
         M = find_rbm_procrustes(v, v0)
         verts_new.append(transform(v, M))
     verts = np.array(verts_new, np.float32)
