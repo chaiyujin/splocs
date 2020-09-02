@@ -81,6 +81,8 @@ class Visualization(HasTraits):
 def main(component_hdf5_file):
     Xmean, tris, components, names = load_splocs(component_hdf5_file)
 
+    print(Xmean.shape, components.shape, tris.shape)
+
     visualization = Visualization(Xmean, tris, components)
     visualization.configure_traits()
 
