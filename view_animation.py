@@ -40,7 +40,6 @@ def main(hdf5_animation_file):
     fig.scene.z_minus_view()
     mlab.show()
 
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Animation viewer for hdf5 mesh animationfiles '
@@ -48,3 +47,4 @@ if __name__ == '__main__':
     parser.add_argument('input_filename')
     args = parser.parse_args()
     main(args.input_filename)
+

@@ -1,6 +1,6 @@
 from os import path
 from glob import glob
-from io import StringIO
+from cStringIO import StringIO
 import numpy as np
 import h5py
 from scipy.sparse.csgraph import connected_components
@@ -15,10 +15,10 @@ def convert_sequence_to_hdf5(filename_pattern, loader_function, hdf_output_file)
     files = glob(path.expanduser(filename_pattern))
     sort_nicely(files)
     for i, f in enumerate(files):
-        print ("loading file %d/%d [%s]" % (i+1, len(files), f))
+        print "loading file %d/%d [%s]" % (i+1, len(files), f)
         verts, new_tris = loader_function(f)
         if tris is not None and new_tris.shape != tris.shape and new_tris != tris:
-            raise ValueError("inconsistent topology between meshes of different frames")
+            raise ValueError, "inconsistent topology between meshes of different frames"
         tris = new_tris
         verts_all.append(verts)
 
@@ -31,7 +31,7 @@ def convert_sequence_to_hdf5(filename_pattern, loader_function, hdf_output_file)
         f.attrs['mean'] = verts_mean
         f.attrs['scale'] = verts_scale
 
-    print ("saved as %s" % hdf_output_file)
+    print "saved as %s" % hdf_output_file
 
 def preprocess_mesh_animation(verts, tris):
     """ 
@@ -40,8 +40,8 @@ def preprocess_mesh_animation(verts, tris):
         - keep only the biggest connected component in the mesh
         - normalize animation into -0.5 ... 0.5 cube
     """
-    print ("Vertices: ", verts.shape)
-    print ("Triangles: ", verts.shape)
+    print "Vertices: ", verts.shape
+    print "Triangles: ", verts.shape
     assert verts.ndim == 3
     assert tris.ndim == 2
     # check for zero-area triangles and filter
@@ -58,9 +58,9 @@ def preprocess_mesh_animation(verts, tris):
     if n_components > 1:
         size_components = np.bincount(labels)
         if len(size_components) > 1:
-            print ("[warning] found %d connected components in the mesh, keeping only the biggest one" % n_components)
-            print ("component sizes: ")
-            print (size_components)
+            print "[warning] found %d connected components in the mesh, keeping only the biggest one" % n_components
+            print "component sizes: "
+            print size_components
         keep_vert = labels == size_components.argmax()
     else:
         keep_vert = np.ones(verts.shape[1], np.bool)
@@ -71,9 +71,9 @@ def preprocess_mesh_animation(verts, tris):
     verts -= verts_mean
     verts_scale = np.abs(verts.ptp(axis=1)).max()
     verts /= verts_scale
-    print ("after preprocessing:")
-    print ("Vertices: ", verts.shape)
-    print ("Triangles: ", verts.shape)
+    print "after preprocessing:"
+    print "Vertices: ", verts.shape
+    print "Triangles: ", verts.shape
     return verts, tris, ~keep_vert, verts_mean, verts_scale
 
 def load_ply(filename):
@@ -83,8 +83,8 @@ def load_ply(filename):
         try:
             from tvtk.api import tvtk
         except ImportError:
-            print ("Reading PLY files requires TVTK. The easiest way is to install mayavi2")
-            print ("(e.g. on Ubuntu: apt-get install mayavi2)")
+            print "Reading PLY files requires TVTK. The easiest way is to install mayavi2"
+            print "(e.g. on Ubuntu: apt-get install mayavi2)"
             raise
     reader = tvtk.PLYReader(file_name=filename)
     reader.update()
