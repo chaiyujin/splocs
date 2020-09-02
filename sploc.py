@@ -29,9 +29,9 @@ def main(input_animation_file, output_sploc_file, output_animation_file):
     rest_shape = "first"  # which frame to use as rest-shape ("first" or "average")
     K = 100  # number of components
     smooth_min_dist = 0.01  # minimum geodesic distance for support map, d_min_in paper
-    smooth_max_dist = 0.25  # maximum geodesic distance for support map, d_max in paper
+    smooth_max_dist = 0.30  # maximum geodesic distance for support map, d_max in paper
     num_iters_max = 20  # number of iterations to run
-    sparsity_lambda = 4.  # sparsity parameter, lambda in the paper
+    sparsity_lambda = 2.  # sparsity parameter, lambda in the paper
 
     rho = 10.0  # penalty parameter for ADMM
     num_admm_iterations = 10  # number of ADMM iterations
