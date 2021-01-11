@@ -27,10 +27,10 @@ def compute_support_map(idx, geodesics, min_dist, max_dist):
 
 def main(input_animation_file, output_sploc_file, output_animation_file):
     rest_shape = "first"  # which frame to use as rest-shape ("first" or "average")
-    K = 50  # number of components
+    K = 25  # number of components
     smooth_min_dist = 0.01  # minimum geodesic distance for support map, d_min_in paper
-    smooth_max_dist = 0.10  # maximum geodesic distance for support map, d_max in paper
-    num_iters_max = 20  # number of iterations to run
+    smooth_max_dist = 0.20  # maximum geodesic distance for support map, d_max in paper
+    num_iters_max   = 20  # number of iterations to run
     sparsity_lambda = 10.  # sparsity parameter, lambda in the paper
 
     rho = 10.0  # penalty parameter for ADMM
